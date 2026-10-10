@@ -1,6 +1,7 @@
 import { getApps, initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore/lite";
 import { initializeAppCheck, ReCaptchaV3Provider } from "firebase/app-check";
+import { hasFunctionalConsent } from "@/lib/cookie-consent";
 
 // Public web configuration from the existing Kandy project. Access is controlled
 // by firestore.rules and App Check, never by hiding these identifiers.
@@ -16,7 +17,12 @@ let appCheckReady = false;
 export function getSubmissionDatabase() {
   const app = getApps()[0] ?? initializeApp(firebaseConfig);
   const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
-  if (typeof window !== "undefined" && siteKey && !appCheckReady) {
+  if (
+    typeof window !== "undefined" &&
+    siteKey &&
+    hasFunctionalConsent() &&
+    !appCheckReady
+  ) {
     initializeAppCheck(app, {
       provider: new ReCaptchaV3Provider(siteKey),
       isTokenAutoRefreshEnabled: true,

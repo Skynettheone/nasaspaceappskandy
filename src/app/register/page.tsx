@@ -1,32 +1,34 @@
 import type { Metadata } from "next";
 import { FormPage } from "@/components/FormPage";
 import { site } from "@/content/site";
-export const metadata: Metadata = { title: "Join the hackathon" };
+import { LocalizedText as L } from "@/components/LocalizedText";
+import { createPageMetadata } from "@/content/metadata";
+export const metadata: Metadata = createPageMetadata({
+  title: "Join the hackathon",
+  description: "Register your interest in NASA Space Apps Kandy 2026, join with a team, or come ready to find collaborators.",
+  path: "/register",
+});
 export default function Register() {
   return (
     <FormPage
       kind="registrations"
-      label="YOUR IDEAS BELONG HERE"
-      title="A big idea starts with a first step."
-      description="Introduce yourself or your team to the NASA Space Apps Kandy community."
-      asideTitle="Come with a team. Or find one here."
+      label={<L id="register.intro.label" />}
+      title={<L id="register.intro.title" />}
+      description={<L id="register.intro.description" />}
+      asideTitle={<L id="register.aside.title" />}
     >
       <p>
-        Tell us a little about yourself and what you would like to explore. Solo
-        applicants can express interest in finding a team.
+        <L id="register.aside.first" />
       </p>
       <p>
-        Local dates, venue, and participation arrangements will be announced by
-        the organising team.
+        <L id="register.aside.second" />
       </p>
       <div className="quiet-note">
-        This is a local application. Global participant registration is
-        completed separately on the{" "}
+        <L id="register.note.first" />{" "}
         <a href={site.globalUrl} target="_blank" rel="noopener noreferrer">
-          NASA Space Apps website
+          <L id="register.note.link" />
         </a>
-        . Please check its participant terms, including requirements for
-        participants under 18.
+        . <L id="register.note.second" />
       </div>
     </FormPage>
   );

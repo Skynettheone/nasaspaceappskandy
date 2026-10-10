@@ -34,15 +34,17 @@ export function Hero() {
   return (
     <section ref={sceneRef} className="home-hero" aria-labelledby="hero-title">
       <picture className="hero-media hero-depth-sky">
-        <source media="(max-width: 760px)" srcSet="/images/hero-depth-sky-mobile.webp" />
-        <img src="/images/hero-depth-sky.webp" alt="" width={1600} height={900} decoding="async" />
+        <img
+          src="/images/hero-depth-sky.webp"
+          alt=""
+          width={1600}
+          height={900}
+          fetchPriority="high"
+          loading="eager"
+          decoding="async"
+        />
       </picture>
       <picture className="hero-media hero-depth-foreground">
-        <source
-          media="(max-width: 760px)"
-          srcSet="/images/hero-depth-foreground-mobile.webp"
-        />
-        {/* Art direction uses the smaller mobile crop without downloading both images. */}
         <img
           src="/images/hero-depth-foreground.webp"
           alt=""
@@ -57,16 +59,13 @@ export function Hero() {
       <div className="hero-shade" />
       <div className="container hero-layout">
         <div className="hero-copy">
-          <div className="mission-caption">NASA SPACE APPS 2026 <span>/</span> THE NEXT FRONTIER</div>
+          <div className="mission-caption">{t("hero.caption")}</div>
           <h1 id="hero-title">
-            Big ideas.
+            {t("hero.title.first")}
             <br />
-            Beyond boundaries<span className="hero-period">.</span>
+            {t("hero.title.second")}<span className="hero-period">.</span>
           </h1>
-          <p>
-            One planet. Endless possibilities. Bring your curiosity to Kandy and
-            turn NASA&apos;s open data into ideas for Earth and space.
-          </p>
+          <p>{t("hero.description")}</p>
           <div className="button-row">
             <Link href="/register" className="white-button">
               <span className="button-label">{t("hero.cta.primary")}</span>
@@ -80,11 +79,11 @@ export function Hero() {
         </div>
         <div className="hero-bottom">
           <span className="location-tag">
-            <span>KANDY, SRI LANKA</span>
+            <span>{t("hero.location")}</span>
             <span className="location-tag-divider" aria-hidden="true">
               |
             </span>
-            <span>OPEN TO EVERYONE</span>
+            <span>{t("hero.open")}</span>
           </span>
           <MissionCountdown />
         </div>

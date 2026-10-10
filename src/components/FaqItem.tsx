@@ -4,7 +4,7 @@ import { m, useReducedMotion } from "motion/react";
 import { PlusIcon } from "@phosphor-icons/react/dist/csr/Plus";
 
 type FaqItemProps = {
-  question: string;
+  question: ReactNode;
   children: ReactNode;
 };
 

@@ -433,6 +433,11 @@ main > .page-intro:first-child::before, main > .page-intro:first-child::after { 
 
 /* Mobile text follows one left edge; standalone actions fill their column. */
 @media (max-width: 760px) {
+  main { overflow-x: clip; }
+  html:lang(si) main, html:lang(ta) main { overflow-wrap: anywhere; }
+  .section-heading > *, .community-band > div { min-width: 0; max-width: 100%; }
+  .section-label span { overflow-wrap: anywhere; }
+  .community-band { grid-template-columns: minmax(0, 1fr); overflow: hidden; }
   .program-section-bottom { align-items: stretch; text-align: left; gap: 16px; }
   .network-kandy-summary { justify-items: stretch; text-align: left; }
   .network-kandy-summary .network-event { justify-content: flex-start; }
@@ -446,10 +451,11 @@ main > .page-intro:first-child::before, main > .page-intro:first-child::after { 
   .program-section-bottom > a, .network-kandy-summary > .white-button,
   .community-action > a, .footer-top .white-button,
   .resource-links > .white-button, .resource-links > .outline-button,
-  .sponsor-process .outline-button, .empty-state > .outline-button, .empty-state > .white-button {
+  .sponsor-process .outline-button, .empty-state > .outline-button, .empty-state > .white-button,
+  .application-form > .white-button, .form-success > .outline-button {
     display: flex; width: 100%; max-width: 100%; justify-content: center;
   }
-  .footer-top, .footer-middle, .footer-bottom { align-items: center; text-align: center; }
+  .footer-top, .footer-middle, .footer-bottom, .footer-credits { align-items: center; text-align: center; }
   .footer-top { gap: 24px; padding-bottom: 28px; }
   .footer-top > div { text-align: center; width: 100%; }
   .footer-top h2 { max-width: 330px; margin-inline: auto; }
@@ -460,8 +466,9 @@ main > .page-intro:first-child::before, main > .page-intro:first-child::after { 
   .footer-social { justify-content: center; gap: 12px; }
   .footer-social a { width: 40px; height: 40px; }
   .footer-bottom { gap: 6px; padding-block: 20px; }
+  .footer-credits { justify-content: center; }
   .footer-bottom nav { gap: 20px; }
-  .footer-bottom nav a { min-height: 36px; }
+  .footer-bottom nav a, .footer-cookie-button { min-height: 36px; }
 }
 
 /* Vertical scroll depth, with a lightly softened distant sky. */

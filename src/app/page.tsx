@@ -7,132 +7,130 @@ import { ChallengeCards, AwardsPreview } from "@/components/ProgramCards";
 import { Hero } from "@/components/Hero";
 import { WorldMap } from "@/components/WorldMap";
 import { ActionLink, CommunityBand, SectionLabel } from "@/components/Elements";
-import { site } from "@/content/site";
+import { LocalizedText as L } from "@/components/LocalizedText";
+import { createPageMetadata } from "@/content/metadata";
+
+export const metadata = createPageMetadata({
+  title: "NASA Space Apps Kandy | Ideas beyond boundaries",
+  description: "Join NASA Space Apps Kandy on November 14–15, 2026. Build ideas for Earth and space with NASA open data and a global community.",
+  path: "/",
+});
 
 export default function Home() {
   return (
     <main id="main" className="home-page">
       <Hero />
       <section id="discover" className="home-intro">
-        <SectionLabel>FROM KANDY. FOR THE WORLD.</SectionLabel>
+        <SectionLabel><L id="home.intro.label" /></SectionLabel>
         <h2>
-          Extraordinary things begin
+          <L id="home.intro.title.first" />
           <br />
-          with a curious mind.
+          <L id="home.intro.title.second" />
         </h2>
-        <p>
-          A community of problem-solvers exploring Earth and space together.
-          NASA Space Apps brings people from different backgrounds together to
-          build with open data, share ideas, and discover what is possible.
-        </p>
+        <p><L id="home.intro.description" /></p>
       </section>
       <section className="focus-section">
         <div className="section-heading">
-          <div><SectionLabel>2026 / CHALLENGE BRIEFS ARE LIVE</SectionLabel><h2>Real NASA challenges.<br />Made for curious minds.</h2></div>
-          <p>Explore 14 challenges with your Kandy team. Start with Earth observation, space exploration, or a new way to tell a scientific story.</p>
+          <div><SectionLabel><L id="home.focus.label" /></SectionLabel><h2><L id="home.focus.title.first" /><br /><L id="home.focus.title.second" /></h2></div>
+          <p><L id="home.focus.description" /></p>
         </div>
         <ChallengeCards featured />
-        <div className="program-section-bottom"><span>Official NASA imagery · 2026 challenge summaries</span><ActionLink href="/challenges" outline>Explore all 14 challenges</ActionLink></div>
+        <div className="program-section-bottom"><span><L id="home.focus.note" /></span><ActionLink href="/challenges" outline><L id="home.focus.cta" /></ActionLink></div>
       </section>
       <section className="approach-section">
         <div className="section-heading">
           <div>
-            <SectionLabel>MORE THAN A HACKATHON</SectionLabel>
+            <SectionLabel><L id="home.approach.label" /></SectionLabel>
             <h2>
-              Different perspectives.
+              <L id="home.approach.title.first" />
               <br />
-              Shared possibilities.
+              <L id="home.approach.title.second" />
             </h2>
           </div>
         </div>
         <div className="approach-grid">
           <article className="approach-card approach-main">
-            <SectionLabel>BRING YOUR PERSPECTIVE</SectionLabel>
+            <SectionLabel><L id="home.perspective.label" /></SectionLabel>
             <h3>
-              You don&apos;t have to be
-              <br />a rocket scientist.
+              <L id="home.perspective.title.first" />
+              <br /><L id="home.perspective.title.second" />
             </h3>
-            <p>
-              Code, sketch, research, write, or ask a better question. Every
-              discipline brings something valuable to the table.
-            </p>
+            <p><L id="home.perspective.description" /></p>
             <div className="focus-tags">
-              <span>Students</span>
-              <span>Developers</span>
-              <span>Designers</span>
-              <span>Scientists</span>
-              <span>Storytellers</span>
+              <span><L id="home.perspective.tag.students" /></span>
+              <span><L id="home.perspective.tag.developers" /></span>
+              <span><L id="home.perspective.tag.designers" /></span>
+              <span><L id="home.perspective.tag.scientists" /></span>
+              <span><L id="home.perspective.tag.storytellers" /></span>
             </div>
             <Link className="text-link" href="/about">
-              Discover Space Apps <ArrowUpRight size={18} aria-hidden="true" />
+              <L id="home.perspective.cta" /> <ArrowUpRight size={18} aria-hidden="true" />
             </Link>
           </article>
           <article className="approach-card approach-accent">
             <Orbit size={38} weight="regular" aria-hidden="true" />
             <div>
               <span className="technical-label">
-                LOCAL IDEAS / GLOBAL CONNECTIONS
+                <L id="home.connections.label" />
               </span>
               <h3>
-                One community.
+                <L id="home.connections.title.first" />
                 <br />
-                No small ideas.
+                <L id="home.connections.title.second" />
               </h3>
               <p>
-                A space to meet collaborators and see a familiar problem from a
-                new angle.
+                <L id="home.connections.description" />
               </p>
             </div>
           </article>
           <article className="approach-card approach-global">
             <Users size={28} weight="regular" aria-hidden="true" />
-            <h3>Make room for more.</h3>
-            <p>Connect your campus with the Kandy community.</p>
+            <h3><L id="home.ambassador.title" /></h3>
+            <p><L id="home.ambassador.description" /></p>
             <Link href="/ambassadors" className="text-link">
-              Become an ambassador <ArrowUpRight size={17} aria-hidden="true" />
+              <L id="home.ambassador.cta" /> <ArrowUpRight size={17} aria-hidden="true" />
             </Link>
           </article>
           <article className="approach-card approach-horizon">
             <div className="horizon-copy">
-              <SectionLabel>BUILD TOGETHER</SectionLabel>
+              <SectionLabel><L id="home.journey.label" /></SectionLabel>
               <h3>
-                From a first question
+                <L id="home.journey.title.first" />
                 <br />
-                to a new possibility.
+                <L id="home.journey.title.second" />
               </h3>
               <p>
-                Meet your team, explore the data, and bring an idea to life.
+                <L id="home.journey.description" />
               </p>
-              <Link href="/register" className="text-link">Build with us <ArrowUpRight size={17} aria-hidden="true" /></Link>
+              <Link href="/register" className="text-link"><L id="home.journey.cta" /> <ArrowUpRight size={17} aria-hidden="true" /></Link>
             </div>
             <ol className="mission-steps" aria-label="Your Space Apps journey">
-              <li><span>01</span> Explore</li>
-              <li><span>02</span> Collaborate</li>
-              <li><span>03</span> Create</li>
+              <li><span>01</span> <L id="home.journey.step.explore" /></li>
+              <li><span>02</span> <L id="home.journey.step.collaborate" /></li>
+              <li><span>03</span> <L id="home.journey.step.create" /></li>
             </ol>
           </article>
         </div>
       </section>
       <section className="statement-section">
         <span className="statement-pattern" aria-hidden="true" />
-        <SectionLabel>YOUR IDEAS BELONG HERE</SectionLabel>
+        <SectionLabel><L id="home.statement.label" /></SectionLabel>
         <h2>
-          The next big idea
+          <L id="home.statement.title.first" />
           <br />
-          could begin with you.
+          <L id="home.statement.title.second" />
         </h2>
-        <p>Come with a team, or come ready to find one.</p>
-        <ActionLink href="/register">Join the Kandy community</ActionLink>
+        <p><L id="home.statement.description" /></p>
+        <ActionLink href="/register"><L id="home.statement.cta" /></ActionLink>
       </section>
       <section className="world-section">
         <div className="section-heading">
           <div>
-            <SectionLabel>LOCAL ROOTS. GLOBAL REACH.</SectionLabel>
-            <h2>Connected by curiosity.</h2>
+            <SectionLabel><L id="home.world.label" /></SectionLabel>
+            <h2><L id="home.world.title" /></h2>
           </div>
           <p>
-            From the heart of Sri Lanka to a worldwide community of
-            problem-solvers.
+            <L id="home.world.description" />
           </p>
         </div>
         <WorldMap />
@@ -141,23 +139,23 @@ export default function Home() {
       <section className="pathways-section">
         <div className="section-heading">
           <div>
-            <SectionLabel>FIND YOUR ROLE</SectionLabel>
-            <h2>Many ways to be part of it.</h2>
+            <SectionLabel><L id="home.pathways.label" /></SectionLabel>
+            <h2><L id="home.pathways.title" /></h2>
           </div>
         </div>
         <div className="pathway-grid">
           <Link href="/join">
             <Users size={28} weight="regular" aria-hidden="true" />
-            <span className="technical-label">VOLUNTEERS & MENTORS</span>
-            <h3>Help ideas take flight.</h3>
-            <p>Share your time, experience, or technical skills.</p>
+            <span className="technical-label"><L id="home.pathways.volunteer.label" /></span>
+            <h3><L id="home.pathways.volunteer.title" /></h3>
+            <p><L id="home.pathways.volunteer.description" /></p>
             <ArrowUpRight className="card-arrow" size={22} aria-hidden="true" />
           </Link>
           <Link href="/sponsors" className="sponsor-pathway">
             <Orbit size={28} weight="regular" aria-hidden="true" />
-            <span className="technical-label">PARTNERS & SUPPORTERS</span>
-            <h3>Support the next generation.</h3>
-            <p>Help make collaborative exploration possible in Kandy.</p>
+            <span className="technical-label"><L id="home.pathways.sponsor.label" /></span>
+            <h3><L id="home.pathways.sponsor.title" /></h3>
+            <p><L id="home.pathways.sponsor.description" /></p>
             <ArrowUpRight className="card-arrow" size={22} aria-hidden="true" />
           </Link>
         </div>
@@ -165,24 +163,21 @@ export default function Home() {
       <section className="updates-section">
         <div className="section-heading">
           <div>
-            <SectionLabel>MISSION UPDATES</SectionLabel>
-            <h2>Stay in the loop.</h2>
+            <SectionLabel><L id="home.updates.label" /></SectionLabel>
+            <h2><L id="home.updates.title" /></h2>
           </div>
           <ActionLink href="/news" outline>
-            All updates
+            <L id="home.updates.cta" />
           </ActionLink>
         </div>
         <div className="update-notice">
           <Radio size={27} weight="regular" aria-hidden="true" />
           <div>
-            <h3>{site.eventStatus}</h3>
-            <p>
-              Explore The Next Frontier on November 14–15, 2026, in person or
-              virtually. Kandy venue and session details will follow.
-            </p>
+            <h3><L id="home.updates.event.title" /></h3>
+            <p><L id="home.updates.event.description" /></p>
           </div>
           <Link href="/events" className="text-link">
-            Event information <ArrowUpRight size={17} aria-hidden="true" />
+            <L id="home.updates.event.cta" /> <ArrowUpRight size={17} aria-hidden="true" />
           </Link>
         </div>
       </section>

@@ -5,6 +5,7 @@ import { GlobeHemisphereEastIcon as Globe2 } from "@phosphor-icons/react/dist/ss
 import directory from "@/content/space-apps-locations.json";
 import { projectLocation } from "@/lib/mission-clock";
 import { InteractiveMap } from "./InteractiveMap";
+import { LocalizedText as L } from "./LocalizedText";
 
 const kandy = directory.events.find((event) => event.url.endsWith("/kandy/"))!;
 const home = projectLocation(kandy.coordinates!);
@@ -22,11 +23,11 @@ export function WorldMap() {
     <div className="world-network">
       <div className="network-heading">
         <span>
-          <Globe2 size={15} aria-hidden="true" /> {mapped.length} LOCATIONS{" "}
-          <i>/</i> {countries} COUNTRIES & TERRITORIES
+          <Globe2 size={15} aria-hidden="true" /> {mapped.length} <L id="world.locations" />{" "}
+          <i>/</i> {countries} <L id="world.countries" />
         </span>
         <span className="network-home-key">
-          <i /> KANDY / OUR HOME BASE
+          <i /> <L id="world.homeKey" />
         </span>
       </div>
       <InteractiveMap>
@@ -84,23 +85,22 @@ export function WorldMap() {
             </text>
           </g>
         </svg>
-        <span className="map-coordinate-label">EARTH / 2026 EVENT NETWORK</span>
+        <span className="map-coordinate-label"><L id="world.mapLabel" /></span>
       </InteractiveMap>
       <div className="network-kandy-summary">
         <div className="network-event">
           <Crosshair size={24} aria-hidden="true" />
-          <div><span className="technical-label">YOUR LOCAL EVENT</span><strong>Kandy, Sri Lanka</strong><span>November 14–15, 2026 · In person + virtual</span></div>
+          <div><span className="technical-label"><L id="world.localEvent" /></span><strong><L id="world.kandy" /></strong><span><L id="world.dateMode" /></span></div>
         </div>
-        <p>A worldwide mission. A community right here in Kandy.<br />Bring your ideas to our home base.</p>
-        <Link className="white-button" href="/register"><span className="button-label">Join Kandy</span><ArrowUpRight size={18} aria-hidden="true" /></Link>
+        <p><L id="world.summary.first" /><br /><L id="world.summary.second" /></p>
+        <Link className="white-button" href="/register"><span className="button-label"><L id="world.cta" /></span><ArrowUpRight size={18} aria-hidden="true" /></Link>
       </div>
       <div className="network-source">
         <span>
-          {directory.totalCount} events including the worldwide Universal Event
-          · Updated {updated}
+          {directory.totalCount} <L id="world.source.events" /> · <L id="world.source.updated" /> {updated}
         </span>
         <a href={directory.source} target="_blank" rel="noopener noreferrer">
-          Official event directory <ArrowUpRight size={12} aria-hidden="true" />
+          <L id="world.source.cta" /> <ArrowUpRight size={12} aria-hidden="true" />
         </a>
       </div>
     </div>

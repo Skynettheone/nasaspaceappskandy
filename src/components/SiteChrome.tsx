@@ -11,6 +11,7 @@ import { EnvelopeIcon as Mail } from "@phosphor-icons/react/dist/csr/Envelope";
 import { GlobeHemisphereEastIcon as Globe2 } from "@phosphor-icons/react/dist/csr/GlobeHemisphereEast";
 import { navigation, site } from "@/content/site";
 import { LANGUAGES, useI18n } from "@/i18n";
+import { CookiePreferencesButton } from "@/components/CookieConsent";
 
 function subscribeScroll(callback: () => void) {
   window.addEventListener("scroll", callback, { passive: true });
@@ -38,7 +39,7 @@ export function SiteLogo() {
   );
 }
 
-function LanguageChoices({ mobile = false }: { mobile?: boolean }) {
+function LanguageChoices({ mobile = false, onSelect }: { mobile?: boolean; onSelect?: () => void }) {
   const { lang, setLang, t } = useI18n();
   return (
     <div className={`language-choices${mobile ? " language-choices-mobile" : " language-choices-desktop"}`} role="group" aria-label={t("nav.language")}>
@@ -47,7 +48,10 @@ function LanguageChoices({ mobile = false }: { mobile?: boolean }) {
         {LANGUAGES.map((language) => (
           <button key={language.code} type="button" lang={language.code}
             aria-label={language.name} aria-pressed={lang === language.code}
-            onClick={() => setLang(language.code)}>
+            onClick={() => {
+              setLang(language.code);
+              onSelect?.();
+            }}>
             {mobile ? language.name : language.label}
           </button>
         ))}
@@ -62,6 +66,8 @@ export function SiteHeader() {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLElement>(null);
   const reduced = useReducedMotion();
+  const currentPath = pathname.replace(/\/+$/, "") || "/";
+  const isCurrent = (href: string) => currentPath === (href.replace(/\/+$/, "") || "/");
   const scrolled = useSyncExternalStore(
     subscribeScroll,
     scrollSnapshot,
@@ -71,6 +77,13 @@ export function SiteHeader() {
   useEffect(() => {
     if (!open) return;
     const previousOverflow = document.body.style.overflow;
+    const previousPaddingRight = document.body.style.paddingRight;
+    const previousScrollLockGap = document.documentElement.style.getPropertyValue("--scroll-lock-gap");
+    const scrollLockGap = window.innerWidth - document.documentElement.clientWidth;
+    if (scrollLockGap > 0) {
+      document.body.style.paddingRight = `${scrollLockGap}px`;
+      document.documentElement.style.setProperty("--scroll-lock-gap", `${scrollLockGap}px`);
+    }
     document.body.style.overflow = "hidden";
     document.documentElement.dataset.menuOpen = "true";
     const outside = document.querySelectorAll<HTMLElement>("main, .site-footer");
@@ -94,6 +107,9 @@ export function SiteHeader() {
     window.addEventListener("keydown", keyboard);
     return () => {
       document.body.style.overflow = previousOverflow;
+      document.body.style.paddingRight = previousPaddingRight;
+      if (previousScrollLockGap) document.documentElement.style.setProperty("--scroll-lock-gap", previousScrollLockGap);
+      else document.documentElement.style.removeProperty("--scroll-lock-gap");
       delete document.documentElement.dataset.menuOpen;
       outside.forEach((element) => { element.inert = false; });
       desktop.removeEventListener("change", closeOnDesktop);
@@ -115,7 +131,7 @@ export function SiteHeader() {
               key={item.href}
               href={item.href}
               onClick={() => setOpen(false)}
-              aria-current={pathname === item.href ? "page" : undefined}
+              aria-current={isCurrent(item.href) ? "page" : undefined}
             >
               {t(item.key)}
             </Link>
@@ -134,7 +150,8 @@ export function SiteHeader() {
           aria-controls="mobile-navigation"
           onClick={() => setOpen((v) => !v)}
         >
-          {open ? <X size={24} /> : <Menu size={24} />}
+          <Menu className="menu-icon menu-icon-open" size={24} aria-hidden="true" />
+          <X className="menu-icon menu-icon-close" size={24} aria-hidden="true" />
         </button>
         <AnimatePresence initial={false}>
           {open && <m.div key="mobile-menu" className="mobile-menu-layer" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: reduced ? 0 : .18 }}>
@@ -143,9 +160,9 @@ export function SiteHeader() {
               initial={{ opacity: 0, y: reduced ? 0 : -12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: reduced ? 0 : -8 }}
               transition={{ duration: reduced ? 0 : .24, ease: [.22, 1, .36, 1] }}>
               {navigation.map((item, index) => <m.div key={item.href} initial={{ opacity: 0, y: reduced ? 0 : -6 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: reduced ? 0 : .24, delay: reduced ? 0 : index * .025 }}>
-                <Link href={item.href} onClick={() => setOpen(false)} aria-current={pathname === item.href ? "page" : undefined}>{t(item.key)}</Link>
+                <Link href={item.href} onClick={() => setOpen(false)} aria-current={isCurrent(item.href) ? "page" : undefined}>{t(item.key)}</Link>
               </m.div>)}
-              <LanguageChoices mobile />
+              <LanguageChoices mobile onSelect={() => { setOpen(false); buttonRef.current?.focus(); }} />
               <Link href="/register" className="mobile-register white-button" onClick={() => setOpen(false)}><span className="button-label">{t("nav.register")}</span><ArrowUpRight size={15} aria-hidden="true" /></Link>
             </m.nav>
           </m.div>}
@@ -163,10 +180,10 @@ export function SiteFooter() {
         <div className="footer-top">
           <SiteLogo />
           <div>
-            <p>KANDY, SRI LANKA / A WORLD OF POSSIBILITIES</p>
-            <h2>Your next chapter starts here.</h2>
+            <p>{t("footer.tagline")}</p>
+            <h2>{t("footer.title")}</h2>
             <Link href="/register" className="white-button">
-              <span className="button-label">Join the Kandy community</span>
+              <span className="button-label">{t("footer.cta")}</span>
               <ArrowUpRight size={17} aria-hidden="true" />
             </Link>
           </div>
@@ -180,7 +197,7 @@ export function SiteFooter() {
             ))}
             <Link href="/ambassadors">{t("nav.ambassadors")}</Link>
             <Link href="/news">{t("nav.news")}</Link>
-            <Link href="/awards">Awards</Link>
+            <Link href="/awards">{t("footer.awards")}</Link>
           </nav>
           <div className="footer-social">
             <a href={`mailto:${site.email}`} aria-label="Email the Kandy team">
@@ -197,16 +214,19 @@ export function SiteFooter() {
           </div>
         </div>
         <div className="footer-bottom">
-          <span>© {new Date().getFullYear()} NASA Space Apps Kandy.</span>
+          <div className="footer-credits">
+            <span>© {new Date().getFullYear()} NASA Space Apps Kandy.</span>
+            <span>
+              {t("footer.craftedBy")}{" "}
+              <a href="https://www.sequencelabs.dev" target="_blank" rel="noopener noreferrer">
+                Sequence Labs
+              </a>
+            </span>
+          </div>
           <nav aria-label="Legal">
-            <Link href="/privacy">Privacy</Link>
-            <a
-              href={site.participantTerms}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Participant terms <ArrowUpRight size={12} aria-hidden="true" />
-            </a>
+            <Link href="/privacy">{t("footer.privacy")}</Link>
+            <Link href="/terms">{t("footer.terms")}</Link>
+            <CookiePreferencesButton />
           </nav>
         </div>
       </div>

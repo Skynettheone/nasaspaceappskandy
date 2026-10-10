@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowUpRightIcon as ArrowUpRight } from "@phosphor-icons/react/dist/ssr/ArrowUpRight";
 import type { ReactNode } from "react";
+import { LocalizedText } from "./LocalizedText";
 
 export function SectionLabel({ children }: { children: ReactNode }) {
   return (
@@ -31,9 +32,9 @@ export function PageIntro({
   title,
   description,
 }: {
-  label: string;
-  title: string;
-  description: string;
+  label: ReactNode;
+  title: ReactNode;
+  description: ReactNode;
 }) {
   return (
     <section className="page-intro">
@@ -50,15 +51,15 @@ export function CommunityBand() {
     <section className="community-band">
       <span className="cta-pattern" aria-hidden="true" />
       <div>
-        <SectionLabel>BE PART OF WHAT COMES NEXT</SectionLabel>
+        <SectionLabel><LocalizedText id="community.label" /></SectionLabel>
         <h2>
-          A place for your ideas.
-          <br />A community to build with.
+          <LocalizedText id="community.title.first" />
+          <br /><LocalizedText id="community.title.second" />
         </h2>
-        <p>Find your role in NASA Space Apps Kandy.</p>
+        <p><LocalizedText id="community.description" /></p>
       </div>
       <div className="community-action">
-        <ActionLink href="/join">Get involved</ActionLink>
+        <ActionLink href="/join"><LocalizedText id="community.cta" /></ActionLink>
       </div>
     </section>
   );

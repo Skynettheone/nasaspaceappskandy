@@ -26,15 +26,20 @@ html.lenis.lenis-smooth { scroll-behavior: auto !important; }
 .faq-answer { overflow: hidden; }
 .faq-answer-inner { padding: 0 32px 24px 0; }
 .faq-list .faq-answer p { margin: 0; }
-.mobile-menu-layer { display: none; }
-.menu-button svg { transition: transform .2s var(--ease-out); }
-.menu-button[aria-expanded="true"] svg { transform: rotate(90deg); }
+.mobile-menu-layer { display: none; position: absolute; inset: 0; pointer-events: none; }
+.mobile-menu-backdrop, .mobile-nav-panel { pointer-events: auto; }
+.menu-button .menu-icon { position: absolute; inset: 50% auto auto 50%; transition: opacity .16s ease, transform .18s var(--ease-out); }
+.menu-icon-open { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+.menu-icon-close { opacity: 0; transform: translate(-50%, -50%) scale(.8); }
+.menu-button[aria-expanded="true"] .menu-icon-open { opacity: 0; transform: translate(-50%, -50%) scale(.8); }
+.menu-button[aria-expanded="true"] .menu-icon-close { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 @media (max-width: 900px) {
   .mobile-menu-layer { display: block; }
   .mobile-menu-backdrop { position: fixed; inset: var(--header-height) 0 0; border: 0; background: #02091ab8; backdrop-filter: blur(4px); cursor: default; }
   .mobile-nav-panel { position: absolute; top: var(--header-height); left: 0; right: 0; max-height: calc(100dvh - var(--header-height)); overflow-y: auto; overscroll-behavior: contain; padding: 16px 6% 24px; background: var(--ink); border-bottom: 1px solid var(--border); box-shadow: 0 20px 40px #0003; }
   .mobile-nav-panel > div > a { display: flex; align-items: center; min-height: 48px; padding: 12px 0; border-bottom: 1px dashed var(--border); font-size: 14px; text-transform: uppercase; }
-  .mobile-nav-panel a[aria-current] { color: var(--neon-yellow); }
+  .mobile-nav-panel a[aria-current="page"] { padding-left: 0; color: var(--neon-yellow); background: transparent; box-shadow: none; }
+  .mobile-nav-panel a[aria-current="page"]::before { content: ""; width: 12px; height: 1px; flex: 0 0 12px; margin-right: 8px; background: currentColor; box-shadow: 0 0 8px #eafe0766; }
   .mobile-nav-panel .mobile-register { display: flex; width: 100%; margin-top: 16px; }
 }
 @media (max-width: 760px) {

@@ -3,6 +3,7 @@ import { ApplicationForm } from "./ApplicationForm";
 import { site } from "@/content/site";
 import type { FormKind } from "@/lib/submissions";
 import type { ReactNode } from "react";
+import { LocalizedText as L } from "./LocalizedText";
 
 export function FormPage({
   kind,
@@ -13,10 +14,10 @@ export function FormPage({
   children,
 }: {
   kind: FormKind;
-  label: string;
-  title: string;
-  description: string;
-  asideTitle: string;
+  label: ReactNode;
+  title: ReactNode;
+  description: ReactNode;
+  asideTitle: ReactNode;
   children: ReactNode;
 }) {
   return (
@@ -24,11 +25,11 @@ export function FormPage({
       <PageIntro label={label} title={title} description={description} />
       <section className="form-layout">
         <aside className="form-aside">
-          <SectionLabel>KANDY / LET&apos;S CONNECT</SectionLabel>
+          <SectionLabel><L id="formPage.aside.label" /></SectionLabel>
           <h2>{asideTitle}</h2>
           {children}
           <div className="quiet-note">
-            Need a hand?
+            <L id="formPage.help" />
             <br />
             <a href={`mailto:${site.email}`}>{site.email}</a>
           </div>

@@ -1,22 +1,26 @@
 import type { Metadata } from "next";
 import { FormPage } from "@/components/FormPage";
-export const metadata: Metadata = { title: "Contact" };
+import { LocalizedText as L } from "@/components/LocalizedText";
+import { createPageMetadata } from "@/content/metadata";
+export const metadata: Metadata = createPageMetadata({
+  title: "Contact",
+  description: "Contact the NASA Space Apps Kandy organising team with participation, partnership, media, or event questions.",
+  path: "/contact",
+});
 export default function Contact() {
   return (
     <FormPage
       kind="messages"
-      label="CONTACT THE KANDY TEAM"
-      title="Let’s start a conversation."
-      description="Questions about participating, mentoring, partnerships, or something else? We would like to hear from you."
-      asideTitle="Small questions. Big possibilities."
+      label={<L id="contact.intro.label" />}
+      title={<L id="contact.intro.title" />}
+      description={<L id="contact.intro.description" />}
+      asideTitle={<L id="contact.aside.title" />}
     >
       <p>
-        We are building a community around open science, creativity, and
-        collaboration in Kandy, Sri Lanka.
+        <L id="contact.aside.first" />
       </p>
       <p>
-        Send your question to the organising team. Include any details that will
-        help us direct it to the right person.
+        <L id="contact.aside.second" />
       </p>
     </FormPage>
   );

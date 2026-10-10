@@ -5,42 +5,48 @@ import { MapPinIcon as MapPin } from "@phosphor-icons/react/dist/ssr/MapPin";
 import { UsersThreeIcon as Users } from "@phosphor-icons/react/dist/ssr/UsersThree";
 import { PageIntro, CommunityBand } from "@/components/Elements";
 import { spaceAppsEvent } from "@/content/event";
-export const metadata: Metadata = { title: "Events & programme" };
+import { LocalizedText as L } from "@/components/LocalizedText";
+import { createPageMetadata } from "@/content/metadata";
+export const metadata: Metadata = createPageMetadata({
+  title: "Events & programme",
+  description: "Explore the NASA Space Apps Kandy 2026 event dates, location, programme, and participation details.",
+  path: "/events",
+});
 export default function Events() {
   return (
     <main id="main">
       <PageIntro
-        label="EVENTS & PROGRAMME"
-        title="Make space for what comes next."
-        description="The Kandy programme brings people together to learn, collaborate, and turn ideas into projects."
+        label={<L id="events.intro.label" />}
+        title={<L id="events.intro.title" />}
+        description={<L id="events.intro.description" />}
       />
       <section className="content-section">
         <div className="info-grid">
           {[
             {
               icon: CalendarDays,
-              title: spaceAppsEvent.dates,
-              text: `Explore ${spaceAppsEvent.theme} at NASA Space Apps Kandy. Session and venue opening times will follow.`,
-              status: "DATES CONFIRMED",
+              title: "events.card.date.title" as const,
+              text: "events.card.date.text" as const,
+              status: "events.card.date.status" as const,
             },
             {
               icon: MapPin,
-              title: "Venue",
-              text: "Kandy, Sri Lanka. Venue and access information will be announced here.",
-              status: "TO BE ANNOUNCED",
+              title: "events.card.venue.title" as const,
+              text: "events.card.venue.text" as const,
+              status: "events.card.venue.status" as const,
             },
             {
               icon: Users,
-              title: "In person + virtual",
-              text: "The official Kandy event supports both in-person and virtual participation. All backgrounds and experience levels are welcome.",
-              status: "HYBRID EVENT",
+              title: "events.card.mode.title" as const,
+              text: "events.card.mode.text" as const,
+              status: "events.card.mode.status" as const,
             },
           ].map((card) => (
             <article className="info-card" key={card.title}>
               <card.icon size={28} weight="regular" aria-hidden="true" />
-              <h3>{card.title}</h3>
-              <p>{card.text}</p>
-              <span className="status-pill">{card.status}</span>
+              <h3><L id={card.title} /></h3>
+              <p><L id={card.text} /></p>
+              <span className="status-pill"><L id={card.status} /></span>
             </article>
           ))}
         </div>
@@ -50,34 +56,34 @@ export default function Events() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          View the official Kandy event listing <ArrowUpRight size={16} aria-hidden="true" />
+          <L id="events.officialLink" /> <ArrowUpRight size={16} aria-hidden="true" />
         </a>
       </section>
       <section className="content-section">
-        <h2>A journey from curiosity to creation.</h2>
+        <h2><L id="events.journey.title" /></h2>
         <div className="numbered-list">
           {[
             [
               "01",
-              "Get ready",
-              "Explore open data, meet the community, and start thinking about the questions you want to tackle.",
+              "events.journey.01.title",
+              "events.journey.01.text",
             ],
             [
               "02",
-              "Build together",
-              "Choose an official challenge, collaborate with a team, and develop your idea.",
+              "events.journey.02.title",
+              "events.journey.02.text",
             ],
             [
               "03",
-              "Share your work",
-              "Present what you have made and learn from the ideas around you.",
+              "events.journey.03.title",
+              "events.journey.03.text",
             ],
           ].map(([n, title, text]) => (
             <article key={n}>
               <span>{n}</span>
               <div>
-                <h3>{title}</h3>
-                <p>{text}</p>
+                <h3><L id={title as "events.journey.01.title"} /></h3>
+                <p><L id={text as "events.journey.01.text"} /></p>
               </div>
             </article>
           ))}

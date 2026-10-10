@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowUpRightIcon } from "@phosphor-icons/react/dist/ssr/ArrowUpRight";
 import program from "@/content/official-program.json";
 import { ActionLink, SectionLabel } from "@/components/Elements";
+import { LocalizedText as L } from "@/components/LocalizedText";
 
 export function ChallengeCards({ featured = false }: { featured?: boolean }) {
   const challenges = featured ? [program.challenges[5], program.challenges[2], program.challenges[13]] : program.challenges;
@@ -27,8 +28,8 @@ export function AwardsPreview() {
   return (
     <section className="awards-preview">
       <div className="section-heading">
-        <div><SectionLabel>IDEAS WITH IMPACT</SectionLabel><h2>Build in Kandy.<br />Think beyond it.</h2></div>
-        <p>Discover the kinds of work NASA Space Apps celebrates, from sound science to ideas that make a difference close to home.</p>
+        <div><SectionLabel><L id="awardsPreview.label" /></SectionLabel><h2><L id="awardsPreview.title.first" /><br /><L id="awardsPreview.title.second" /></h2></div>
+        <p><L id="awardsPreview.description" /></p>
       </div>
       <div className="award-preview-grid">
         {[program.awards[0], program.awards[8], program.awards[9]].map((award) => (
@@ -39,7 +40,7 @@ export function AwardsPreview() {
           </Link>
         ))}
       </div>
-      <div className="program-section-bottom"><span>10 categories · Latest published awards: 2025</span><ActionLink href="/awards" outline>Explore the awards</ActionLink></div>
+      <div className="program-section-bottom"><span><L id="awardsPreview.note" /></span><ActionLink href="/awards" outline><L id="awardsPreview.cta" /></ActionLink></div>
     </section>
   );
 }

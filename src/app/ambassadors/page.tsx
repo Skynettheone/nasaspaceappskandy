@@ -1,22 +1,26 @@
 import type { Metadata } from "next";
 import { FormPage } from "@/components/FormPage";
-export const metadata: Metadata = { title: "Campus ambassadors" };
+import { LocalizedText as L } from "@/components/LocalizedText";
+import { createPageMetadata } from "@/content/metadata";
+export const metadata: Metadata = createPageMetadata({
+  title: "Campus ambassadors",
+  description: "Become a NASA Space Apps Kandy campus ambassador and connect students with the local space and open-data community.",
+  path: "/ambassadors",
+});
 export default function Ambassadors() {
   return (
     <FormPage
       kind="ambassadors"
-      label="CAMPUS AMBASSADORS"
-      title="Bring your campus into the conversation."
-      description="Help curious minds discover NASA Space Apps and connect with the Kandy community."
-      asideTitle="A connection starts with you."
+      label={<L id="ambassadors.intro.label" />}
+      title={<L id="ambassadors.intro.title" />}
+      description={<L id="ambassadors.intro.description" />}
+      asideTitle={<L id="ambassadors.aside.title" />}
     >
       <p>
-        Share event information, encourage students across disciplines, and help
-        your campus find its place in the community.
+        <L id="ambassadors.aside.first" />
       </p>
       <p>
-        We welcome interest from schools and universities across Sri Lanka. Tell
-        us about your institution and what motivates you to get involved.
+        <L id="ambassadors.aside.second" />
       </p>
     </FormPage>
   );

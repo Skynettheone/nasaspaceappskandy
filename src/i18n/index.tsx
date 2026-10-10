@@ -47,14 +47,24 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const detected = detectLang();
+    document.documentElement.lang = detected;
     // Browser preference is only available after hydration.
     // eslint-disable-next-line react-hooks/set-state-in-effect
     if (detected !== "en") setLangState(detected);
+
+    const syncStoredLanguage = (event: StorageEvent) => {
+      if (event.key !== STORAGE_KEY || !isLang(event.newValue)) return;
+      setLangState(event.newValue);
+      document.documentElement.lang = event.newValue;
+    };
+    window.addEventListener("storage", syncStoredLanguage);
+    return () => window.removeEventListener("storage", syncStoredLanguage);
   }, []);
 
   const setLang = useCallback((next: Lang) => {
     setLangState(next);
     if (typeof window !== "undefined") {
+      document.documentElement.lang = next;
       try {
         window.localStorage?.setItem(STORAGE_KEY, next);
       } catch {

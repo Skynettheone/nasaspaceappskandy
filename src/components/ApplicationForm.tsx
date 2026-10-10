@@ -23,14 +23,42 @@ import {
   volunteerSkills,
   site,
 } from "@/content/site";
+import { useI18n, type StringKey } from "@/i18n";
 
-const formTitles: Record<FormKind, string> = {
-  registrations: "Your next chapter.",
-  volunteers: "Join the crew.",
-  ambassadors: "Represent your campus.",
-  messages: "Start a conversation.",
+const formTitles: Record<FormKind, StringKey> = {
+  registrations: "form.title.registrations",
+  volunteers: "form.title.volunteers",
+  ambassadors: "form.title.ambassadors",
+  messages: "form.title.messages",
 };
+
+const formCopy: Record<string, StringKey> = {
+  "Full name": "form.field.fullName",
+  "Your name": "form.field.yourName",
+  "Team name": "form.field.teamName",
+  "Team size": "form.field.teamSize",
+  "Team lead name": "form.field.teamLead",
+  "Email address": "form.field.email",
+  "Phone number": "form.field.phone",
+  "School, university, or organisation": "form.field.institutionOrganisation",
+  "School or university": "form.field.institution",
+  "Organisation or university": "form.field.affiliation",
+  "Area of interest": "form.field.interest",
+  Province: "form.field.province",
+  "Academic year": "form.field.academicYear",
+  "Why would you like to be an ambassador?": "form.field.motivation",
+  Subject: "form.field.subject",
+  "Your message": "form.field.message",
+  "Not sure yet": "form.option.notSure",
+  "General inquiry": "form.option.general",
+  "Sponsorship & partners": "form.option.sponsorship",
+  "Media & press": "form.option.media",
+  "Team question": "form.option.teamQuestion",
+};
+
 export function ApplicationForm({ kind }: { kind: FormKind }) {
+  const { t } = useI18n();
+  const localize = (value: string) => formCopy[value] ? t(formCopy[value]) : value;
   const [values, setValues] = useState<FormValues>(() => ({
     ...initialValues[kind],
   }));
@@ -78,23 +106,22 @@ export function ApplicationForm({ kind }: { kind: FormKind }) {
       <div className="application-form form-success" role="status">
         <CheckCircle2 size={42} weight="regular" aria-hidden="true" />
         <h2>
-          {kind === "messages" ? "Message received." : "Application received."}
+          {kind === "messages" ? t("form.receipt.message") : t("form.receipt.application")}
         </h2>
         <p>
-          Your submission has been saved for the Kandy organising team to
-          review.
+          {t("form.receipt.saved")}
         </p>
         {kind === "registrations" && (
           <p>
-            For global participation, also complete registration on the{" "}
+            {t("form.receipt.globalFirst")}{" "}
             <a className="text-link" href={site.globalUrl}>
-              NASA Space Apps website{" "}
+              {t("register.note.link")}{" "}
               <ArrowUpRight size={16} aria-hidden="true" />
             </a>
             .
           </p>
         )}
-        <span className="technical-label">REFERENCE / {receipt}</span>
+        <span className="technical-label">{t("form.reference")} / {receipt}</span>
         <button
           className="outline-button"
           onClick={() => {
@@ -102,7 +129,7 @@ export function ApplicationForm({ kind }: { kind: FormKind }) {
             setValues({ ...initialValues[kind] });
           }}
         >
-          <span className="button-label">Send another response</span>
+          <span className="button-label">{t("form.sendAnother")}</span>
         </button>
       </div>
     );
@@ -116,15 +143,15 @@ export function ApplicationForm({ kind }: { kind: FormKind }) {
       }}
       aria-busy={submitting}
     >
-      <h2>{formTitles[kind]}</h2>
+      <h2>{t(formTitles[kind])}</h2>
       <div className="form-grid">
         {kind === "registrations" && (
           <fieldset className="choice-group" disabled={submitting}>
-            <legend id="track-label">How are you joining?</legend>
+            <legend id="track-label">{t("form.joining.label")}</legend>
             <RadioGroup.Root className="choice-options" name="track" aria-labelledby="track-label" value={String(values.track)} onValueChange={(value) => update("track", value)} disabled={submitting}>
               {[
-                ["team", "With a team"],
-                ["solo", "Solo / find a team"],
+                ["team", t("form.joining.team")],
+                ["solo", t("form.joining.solo")],
               ].map(([value, label]) => (
                 <label key={value}>
                   <RadioGroup.Item className="custom-radio" id={value === "team" ? "field-track" : undefined} value={value}>
@@ -138,14 +165,14 @@ export function ApplicationForm({ kind }: { kind: FormKind }) {
         )}
         {kind === "volunteers" && (
           <fieldset className="choice-group" disabled={submitting}>
-            <legend id="role-label">Your role</legend>
+            <legend id="role-label">{t("form.role.label")}</legend>
             <RadioGroup.Root className="choice-options" name="role" aria-labelledby="role-label" value={String(values.role)} onValueChange={(value) => update("role", value)} disabled={submitting}>
               {["volunteer", "mentor"].map((role) => (
                 <label key={role}>
                   <RadioGroup.Item className="custom-radio" id={role === "volunteer" ? "field-role" : undefined} value={role}>
                     <RadioGroup.Indicator className="custom-radio-dot" />
                   </RadioGroup.Item>
-                  {role === "volunteer" ? "Volunteer" : "Mentor"}
+                  {role === "volunteer" ? t("form.role.volunteer") : t("form.role.mentor")}
                 </label>
               ))}
             </RadioGroup.Root>
@@ -174,17 +201,19 @@ export function ApplicationForm({ kind }: { kind: FormKind }) {
               key={field.name}
             >
               <label htmlFor={props.id}>
-                {field.label}
+                {localize(field.label)}
                 {field.required
                   ? " *"
                   : field.type !== "select"
-                    ? " (optional)"
+                    ? ` (${t("form.optional")})`
                     : ""}
               </label>
               {field.type === "select" ? (
                 <FormSelect id={props.id} name={field.name} value={props.value}
                   options={field.options ?? []} required={field.required} disabled={submitting}
                   invalid={props["aria-invalid"]} describedBy={props["aria-describedby"]}
+                  placeholder={t("form.select.placeholder")} emptyLabel={t("form.select.empty")}
+                  getOptionLabel={localize}
                   onValueChange={(value) => update(field.name, value)} />
               ) : field.type === "textarea" ? (
                 <textarea {...props} maxLength={field.max} rows={5} />
@@ -209,12 +238,12 @@ export function ApplicationForm({ kind }: { kind: FormKind }) {
             [
               [
                 "skills",
-                "Your skills",
+                t("form.skills.label"),
                 values.role === "mentor" ? mentorSkills : volunteerSkills,
               ],
               [
                 "availability",
-                "When could you help? Dates will be confirmed with you.",
+                t("form.availability.label"),
                 availabilityOptions,
               ],
             ] as const
@@ -263,20 +292,19 @@ export function ApplicationForm({ kind }: { kind: FormKind }) {
             <span>
               {kind === "registrations" ? (
                 <>
-                  I have read and agree to the{" "}
+                  {t("form.consent.termsFirst")}{" "}
                   <a
                     href={site.participantTerms}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    NASA Space Apps participant terms and code of conduct
+                    {t("form.consent.termsLink")}
                   </a>
                   .
                 </>
               ) : (
                 <>
-                  I am willing to help share Kandy event information with my
-                  campus and coordinate with the organising team.
+                  {t("form.consent.ambassador")}
                 </>
               )}
             </span>
@@ -290,7 +318,7 @@ export function ApplicationForm({ kind }: { kind: FormKind }) {
       )}
       <div className="form-trap" aria-hidden="true">
         <label>
-          Leave this field empty
+          {t("form.trap")}
           <input
             name="website"
             value={trap}
@@ -301,8 +329,8 @@ export function ApplicationForm({ kind }: { kind: FormKind }) {
         </label>
       </div>
       <p className="form-privacy">
-        Your details go to the Kandy organising team to handle your request.{" "}
-        Read our <Link href="/privacy">data notice</Link>.
+        {t("form.privacy.first")}{" "}
+        {t("form.privacy.read")} <Link href="/privacy">{t("form.privacy.link")}</Link>.
       </p>
       {formError && (
         <p className="form-feedback" role="alert">
@@ -311,10 +339,10 @@ export function ApplicationForm({ kind }: { kind: FormKind }) {
       )}
       <button type="submit" className="white-button" disabled={submitting}>
         <span className="button-label">{submitting
-          ? "Sending…"
+          ? t("form.sending")
           : kind === "messages"
-            ? "Send message"
-            : "Send application"}</span>
+            ? t("form.submit.message")
+            : t("form.submit.application")}</span>
         {submitting ? (
           <LoaderCircle className="spin" size={17} aria-hidden="true" />
         ) : (
