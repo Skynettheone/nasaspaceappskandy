@@ -1,98 +1,47 @@
-# Deploying nasaspaceapps.lk
+# Deploying NASA Space Apps Kandy
 
-Everything here runs on free tiers: Cloudflare Pages (hosting) + Firebase Spark
-(form submissions). No server to run, no card on file.
+## Build and check
 
-## 1. Build
+Use Node 22 LTS (minimum 20.9).
 
-```bash
+```sh
+npm ci
+npm run lint
+npm run typecheck
+npm test
 npm run build:web
 ```
 
-Output lands in `dist/`: one pre-rendered HTML file per route (`/`, `/about`,
-`/events`, …), the JS bundle under `_expo/static/`, and everything from `public/`
-(`_headers`, `robots.txt`, `sitemap.xml`).
+Next.js exports the complete website to `out/`, with an `index.html` in every route directory and assets under `_next/static/`. No Node server, API routes, or server actions are needed in production. Browser form submissions use Firebase directly.
 
-Because the routes are pre-rendered, crawlers and link previews get real titles,
-descriptions and page text rather than an empty SPA shell.
+## Cloudflare Pages
 
-## 2. Cloudflare Pages
+- Build command: `npm run build:web`
+- Output directory: `out`
+- Root directory: the root of this repository
+- Node version: `22`
+- Framework preset: Next.js (Static HTML Export), or None with the above settings
 
-Dashboard → Workers & Pages → Create → Pages → Connect to Git.
+The previous Expo output setting `dist` must be changed to `out`. Existing extensionless public URLs remain supported through directory index files. `public/_headers`, `robots.txt`, and `sitemap.xml` are included in the export.
 
-| Setting | Value |
-|---|---|
-| Framework preset | None |
-| Build command | `npm run build:web` |
-| Build output directory | `dist` |
-| Node version | 20 or newer (set `NODE_VERSION=20` under Environment variables) |
+Run `npm start` to inspect the exported build locally at http://127.0.0.1:3001. This preview server binds to loopback only.
 
-Then Custom domains → add `nasaspaceapps.lk` and `www.nasaspaceapps.lk`.
-Cloudflare issues the TLS certificate automatically once the domain's nameservers
-point at Cloudflare.
+## Firebase
 
-Free tier limits that matter: unlimited bandwidth, unlimited sites, 500 builds per
-month, 100 custom domains. A hackathon site will not come close.
+The existing project identifiers and four Firestore collections are preserved. The collection rules are unchanged. A project owner must verify that the database exists and the intended rules are deployed before launch:
 
-`public/_headers` already sets HSTS, `X-Frame-Options`, `X-Content-Type-Options`,
-`Referrer-Policy`, `Permissions-Policy`, and immutable caching for fingerprinted
-assets. Cloudflare applies it automatically — no extra configuration.
-
-### Vercel instead
-
-Build command `npm run build:web`, output directory `dist`, framework preset
-"Other". Note the Hobby tier is for non-commercial use; a sponsored event site may
-need the Pro plan, which is why Cloudflare Pages is the primary target.
-
-## 3. Firebase (form submissions)
-
-The four forms (`/register`, `/join`, `/ambassadors`, `/contact`) write to
-Firestore collections `registrations`, `volunteers`, `ambassadors`, `messages`.
-
-One-time setup by whoever owns the Firebase project:
-
-1. Firebase console → Build → Firestore Database → Create database.
-   Pick **production mode** and location **asia-south1 (Mumbai)** — closest region
-   to Sri Lanka. The location cannot be changed later.
-2. Deploy the rules in this repo:
-   ```bash
-   npx firebase-tools login
-   npx firebase-tools deploy --only firestore:rules --project nasaspaceappskandy
-   ```
-   `firestore.rules` allows create-only access with per-field type and length
-   checks, and blocks every read, update and delete from the client. Organisers
-   read submissions in the Firebase console (or export with the Admin SDK).
-3. Turn on **App Check** (console → Build → App Check) with reCAPTCHA v3 for the
-   web app, then enforce it on Cloud Firestore. This is what stops a scripted flood
-   of fake registrations. It needs a reCAPTCHA v3 site key — see the organiser
-   checklist.
-
-Until step 1 is done, forms show "The server is not responding…" after 12 seconds
-rather than hanging or silently pretending to succeed.
-
-Spark (free) tier gives 1 GiB storage, 50k document reads and 20k writes per day.
-A 500-participant event uses a fraction of one day's quota.
-
-### Exporting submissions
-
-Firebase console → Firestore → collection → ⋮ → Export, or:
-
-```bash
-npx firebase-tools firestore:export gs://<bucket>/backups/$(date +%F) --project nasaspaceappskandy
+```sh
+npm run deploy:rules
 ```
 
-## 4. Checks before each deploy
+This command uses an authenticated Firebase CLI. Deploying the frontend does not deploy rules.
 
-```bash
-npm run typecheck   # tsc, with a larger V8 stack (see package.json)
-npm run build:web   # must finish with "Exported: dist"
-```
+Optional abuse protection is wired through `NEXT_PUBLIC_RECAPTCHA_SITE_KEY` (set in `.env.local` or the Cloudflare build environment). Register the site in Firebase App Check, configure allowed domains, supply the public reCAPTCHA v3 key, rebuild, then enable enforcement. This migration does not change project permissions, deploy rules, or enable enforcement remotely.
 
-## Regenerating the map outline
+The tests use an injected writer; they do not write sample records to production. A live project-owner submission check is still needed to verify deployed rules and database availability. Organisers inspect submissions in their Firebase console. There is no automatic notification or confirmation-email service configured.
 
-`src/theme/sriLankaGeo.ts` holds the Sri Lanka coastline path, derived from
-geoBoundaries gbOpen LKA ADM0 (OpenStreetMap data, ODbL 1.0) — not drawn by hand.
-To refresh it, download
-`geoBoundaries-LKA-ADM0_simplified.geojson` from geoboundaries.org and re-run the
-projection described in the file header. Keep the attribution line in the footer:
-ODbL requires it.
+## Sources
+
+- Next.js static export guide: https://nextjs.org/docs/app/guides/static-exports
+- Firebase modular web setup: https://firebase.google.com/docs/web/setup
+- App Check setup: https://firebase.google.com/docs/app-check/web/recaptcha-provider
