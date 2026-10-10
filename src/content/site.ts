@@ -5,6 +5,8 @@ export const site = {
   location: "Kandy, Sri Lanka",
   eventStatus: "The Next Frontier · November 14–15, 2026",
   globalUrl: "https://www.spaceappschallenge.org/",
+  instagramUrl: "https://www.instagram.com/nasaspaceapps.lk",
+  tiktokUrl: "https://www.tiktok.com/@nasaspaceapps.lk",
   participantTerms: "https://www.spaceappschallenge.org/legal/",
 };
 export const navigation = [

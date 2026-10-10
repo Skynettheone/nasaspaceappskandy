@@ -22,12 +22,14 @@ export function WorldMap() {
   return (
     <div className="world-network">
       <div className="network-heading">
-        <span>
-          <Globe2 size={15} aria-hidden="true" /> {mapped.length} <L id="world.locations" />{" "}
-          <i>/</i> {countries} <L id="world.countries" />
+        <span className="network-global-key">
+          <Globe2 size={15} aria-hidden="true" />
+          <span className="network-stat">{mapped.length} <L id="world.locations" /></span>
+          <i className="network-stat-divider" aria-hidden="true">/</i>
+          <span className="network-stat network-stat-countries">{countries} <L id="world.countries" /></span>
         </span>
         <span className="network-home-key">
-          <i /> <L id="world.homeKey" />
+          <i /> <span className="network-home-label"><L id="world.homeKey" /></span>
         </span>
       </div>
       <InteractiveMap>

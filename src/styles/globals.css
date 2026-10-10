@@ -771,6 +771,12 @@ main > .home-hero + section::after {
   align-items: center;
   gap: 10px;
 }
+.network-global-key > svg {
+  flex: 0 0 auto;
+}
+.network-stat {
+  white-space: nowrap;
+}
 .network-heading i {
   color: #59686d;
   font-style: normal;
@@ -1731,10 +1737,44 @@ main > .home-hero + section::after {
     margin: 0 12px 24px;
   }
   .network-heading {
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 12px;
+    padding: 0 2px 18px;
     font-size: 8px;
-    line-height: 1.7;
+    line-height: 1.3;
   }
-      .network-event {
+  .network-heading > span {
+    width: auto;
+  }
+  .network-global-key {
+    display: flex !important;
+    flex: 0 0 auto;
+    gap: 7px !important;
+  }
+  .network-global-key > svg {
+    width: 13px;
+    height: 13px;
+    margin: 0;
+  }
+  .network-stat-divider,
+  .network-stat-countries {
+    display: none;
+  }
+  .network-home-key {
+    min-width: 0;
+    justify-content: flex-end;
+    padding-left: 0;
+    gap: 7px !important;
+    color: var(--muted);
+  }
+  .network-home-key i {
+    flex: 0 0 auto;
+  }
+  .network-home-label {
+    white-space: nowrap;
+  }
+  .network-event {
     border-left: 0;
     border-top: 1px dashed var(--border);
     padding: 20px 4px;

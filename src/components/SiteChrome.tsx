@@ -9,6 +9,8 @@ import { ListIcon as Menu } from "@phosphor-icons/react/dist/csr/List";
 import { XIcon as X } from "@phosphor-icons/react/dist/csr/X";
 import { EnvelopeIcon as Mail } from "@phosphor-icons/react/dist/csr/Envelope";
 import { GlobeHemisphereEastIcon as Globe2 } from "@phosphor-icons/react/dist/csr/GlobeHemisphereEast";
+import { InstagramLogoIcon as InstagramLogo } from "@phosphor-icons/react/dist/csr/InstagramLogo";
+import { TiktokLogoIcon as TiktokLogo } from "@phosphor-icons/react/dist/csr/TiktokLogo";
 import { navigation, site } from "@/content/site";
 import { LANGUAGES, useI18n } from "@/i18n";
 import { CookiePreferencesButton } from "@/components/CookieConsent";
@@ -210,6 +212,22 @@ export function SiteFooter() {
               aria-label="NASA Space Apps global website"
             >
               <Globe2 size={17} />
+            </a>
+            <a
+              href={site.instagramUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="NASA Space Apps Kandy on Instagram"
+            >
+              <InstagramLogo size={17} aria-hidden="true" />
+            </a>
+            <a
+              href={site.tiktokUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="NASA Space Apps Kandy on TikTok"
+            >
+              <TiktokLogo size={17} aria-hidden="true" />
             </a>
           </div>
         </div>

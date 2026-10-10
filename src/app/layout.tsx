@@ -1,12 +1,13 @@
 import { MotionSystem } from "@/components/MotionSystem";
 import "lenis/dist/lenis.css";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { SiteFooter, SiteHeader } from "@/components/SiteChrome";
 import { I18nProvider } from "@/i18n";
 import { site } from "@/content/site";
 import { defaultSocialImage } from "@/content/metadata";
 import { CookieConsent } from "@/components/CookieConsent";
 import { ConsoleSignature } from "@/components/ConsoleSignature";
+import { WebApp } from "@/components/WebApp";
 import "@/styles/globals.css";
 import "@/styles/program.css";
 import "@/styles/motion.css";
@@ -59,6 +60,17 @@ export const metadata: Metadata = {
     apple: { url: "/apple-touch-icon.png", sizes: "180x180" },
   },
   manifest: "/site.webmanifest",
+  appleWebApp: {
+    capable: true,
+    title: "Space Apps Kandy",
+    statusBarStyle: "black-translucent",
+  },
+  formatDetection: { telephone: false },
+};
+
+export const viewport: Viewport = {
+  colorScheme: "dark",
+  themeColor: "#07173f",
 };
 export default function RootLayout({
   children,
@@ -71,6 +83,7 @@ export default function RootLayout({
         <I18nProvider>
           <MotionSystem>
             <ConsoleSignature />
+            <WebApp />
             <a className="skip-link" href="#main">
               Skip to content
             </a>
