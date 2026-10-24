@@ -15,58 +15,38 @@ export type PartnerRole = {
   caption?: string;
 };
 
-export type PartnerTier = {
-  level: "lead" | "core" | "support";
-  roles: PartnerRole[];
-};
-
-// Titles follow the official partner announcement posters. Tiers set the display hierarchy.
-export const partnerTiers: PartnerTier[] = [
+// Titles follow the official partner announcement posters; every partner is shown at the same size.
+export const partnerRoles: PartnerRole[] = [
   {
-    level: "lead",
-    roles: [
-      {
-        title: "Official Host University & Venue Partner",
-        logos: [{ src: "/sponsors/sliit-kandy-uni.png", alt: "SLIIT Kandy UNI", width: 1280, height: 367, tile: true }],
-      },
-      {
-        title: "Official Co-Organizer",
-        logos: [{ src: "/sponsors/kandy-uni-student-interactive-society.png", alt: "Student Interactive Society, Kandy UNI", width: 1387, height: 1487 }],
-      },
-    ],
+    title: "Official Host University & Venue Partner",
+    logos: [{ src: "/sponsors/sliit-kandy-uni.png", alt: "SLIIT Kandy UNI", width: 1280, height: 367, tile: true }],
   },
   {
-    level: "core",
-    roles: [
-      {
-        title: "Official Strategic Partner",
-        logos: [{ src: "/sponsors/the-faculty-of-brands.png", alt: "The Faculty of Brands", width: 1411, height: 505 }],
-      },
-      {
-        title: "Official Community Partner",
-        logos: [
-          { src: "/sponsors/IEEE SL Logo - Horizontal - White.png", alt: "IEEE Sri Lanka Section", width: 7405, height: 1111, maxWidth: 212 },
-          { src: "/sponsors/SLSAC WHITE.png", alt: "IEEE SLSAC", width: 2706, height: 759, maxWidth: 76 },
-        ],
-      },
-    ],
+    title: "Official Co-Organizer",
+    logos: [{ src: "/sponsors/kandy-uni-student-interactive-society.png", alt: "Student Interactive Society, Kandy UNI", width: 1387, height: 1487 }],
   },
   {
-    level: "support",
-    roles: [
-      {
-        title: "Official Collaborator",
-        logos: [{ src: "/sponsors/aissa-white.png", alt: "AISSA, All Island Schools Science Association", width: 1078, height: 1147 }],
-      },
-      {
-        title: "Official Digital Marketing Partner",
-        logos: [{ src: "/sponsors/footage-culture.jpg", alt: "Footage Culture", width: 1600, height: 1600, tile: true }],
-      },
-      {
-        title: "Official Digital & Design Partner",
-        logos: [{ src: "/sponsors/SQ3-LOGO-WHITE.png", alt: "", width: 5001, height: 4794 }],
-        caption: "Sequence Labs",
-      },
+    title: "Official Strategic Partner",
+    logos: [{ src: "/sponsors/the-faculty-of-brands.png", alt: "The Faculty of Brands", width: 1411, height: 505 }],
+  },
+  {
+    title: "Official Collaborator",
+    logos: [{ src: "/sponsors/aissa-white.png", alt: "AISSA, All Island Schools Science Association", width: 1078, height: 1147 }],
+  },
+  {
+    title: "Official Digital Marketing Partner",
+    logos: [{ src: "/sponsors/footage-culture.jpg", alt: "Footage Culture", width: 1600, height: 1600, tile: true }],
+  },
+  {
+    title: "Official Digital & Design Partner",
+    logos: [{ src: "/sponsors/SQ3-LOGO-WHITE.png", alt: "", width: 5001, height: 4794 }],
+    caption: "Sequence Labs",
+  },
+  {
+    title: "Official Community Partner",
+    logos: [
+      { src: "/sponsors/IEEE SL Logo - Horizontal - White.png", alt: "IEEE Sri Lanka Section", width: 7405, height: 1111, maxWidth: 168 },
+      { src: "/sponsors/SLSAC WHITE.png", alt: "IEEE SLSAC", width: 2706, height: 759, maxWidth: 60 },
     ],
   },
 ];
