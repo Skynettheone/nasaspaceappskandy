@@ -68,8 +68,8 @@ export default function Home() {
       <section className="home-bootcamp-teaser" aria-labelledby="home-bootcamp-title">
         <div>
           <SectionLabel>BEFORE THE HACKATHON</SectionLabel>
-          <h2 id="home-bootcamp-title">Four cities. One place to begin.</h2>
-          <p>Bootcamps are planned for Colombo, Kandy, Galle and Kurunegala in the first week of November. Meet the community and get ready to build.</p>
+          <h2 id="home-bootcamp-title">Two cities. One place to begin.</h2>
+          <p>Bootcamps are planned for Colombo and Kandy in the first week of November, plus an island-wide webinar open to students in every district. Meet the community and get ready to build.</p>
         </div>
         <ActionLink href="/event-details#bootcamps" outline>Explore bootcamps</ActionLink>
       </section>

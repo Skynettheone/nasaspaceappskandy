@@ -511,17 +511,17 @@ main > .page-intro:first-child::before, main > .page-intro:first-child::after { 
 .bootcamp-section > .section-heading { padding: 0; margin-bottom: 28px; }
 .bootcamp-section > .section-heading .section-label { font-size: 11px; }
 .bootcamp-section > .section-heading h2 { margin: 0; }
-.bootcamp-section .bootcamp-grid { margin-top: 0; }
+.bootcamp-section .bootcamp-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 0; }
 .after-event-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .venue-map { margin-top: 36px; }
 .venue-map iframe { display: block; width: 100%; min-height: 360px; border: 1px dashed var(--border); }
-@media (max-width: 900px) { .bootcamp-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .bootcamp-registration, .local-registration-panel { grid-template-columns: 1fr; } }
+@media (max-width: 900px) { .bootcamp-grid, .bootcamp-section .bootcamp-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .bootcamp-registration, .local-registration-panel { grid-template-columns: 1fr; } }
 @media (max-width: 760px) {
   .home-partner-strip { flex-direction: column; gap: 10px; }
   .home-bootcamp-teaser { align-items: stretch; flex-direction: column; padding-block: 42px; gap: 24px; }
   .home-bootcamp-teaser > a { width: 100%; min-height: 48px; justify-content: space-between; text-align: left; }
   .home-bootcamp-teaser .button-label { min-width: 0; line-height: 1.4; transform: none; }
-  .bootcamp-grid, .after-event-grid { grid-template-columns: 1fr; }
+  .bootcamp-grid, .bootcamp-section .bootcamp-grid, .after-event-grid { grid-template-columns: 1fr; }
   .bootcamp-card h3 { margin-top: 16px; }
 }
 

@@ -11,7 +11,7 @@ import { createPageMetadata } from "@/content/metadata";
 import { EventSchedule } from "@/components/EventSchedule";
 import { EventFaq } from "@/components/EventFaq";
 import { ApplicationForm } from "@/components/ApplicationForm";
-import { bootcampCities, bootcampWindow } from "@/content/bootcamps";
+import { bootcampCapacity, bootcampCities, bootcampWebinar, bootcampWindow } from "@/content/bootcamps";
 
 const eventHighlights = [
   {
@@ -101,19 +101,25 @@ export default function Events() {
       <section className="content-section bootcamp-section" id="bootcamps" aria-labelledby="bootcamp-title">
         <div className="section-heading">
           <div>
-            <SectionLabel>FOUR CITY BOOTCAMP SERIES</SectionLabel>
+            <SectionLabel>BOOTCAMP SERIES</SectionLabel>
             <h2 id="bootcamp-title">Get ready, together.</h2>
           </div>
-          <p>Four bootcamps are planned for the {bootcampWindow.charAt(0).toLowerCase() + bootcampWindow.slice(1)}. Exact dates and venues will be shared as they are confirmed.</p>
+          <p>Free, half-day bootcamps in Colombo and Kandy are planned for the {bootcampWindow.charAt(0).toLowerCase() + bootcampWindow.slice(1)}, plus an island-wide webinar. Each ends in a live mini-hack. Exact dates and venues will be shared as they are confirmed.</p>
         </div>
         <div className="bootcamp-grid">
           {bootcampCities.map((city, index) => (
             <article className="bootcamp-card" key={city}>
               <span className="technical-label">0{index + 1} / BOOTCAMP</span>
               <h3>{city}</h3>
+              <p>{bootcampCapacity[city]}</p>
               <a className="text-link" href="#bootcamp-registration" aria-label={`Register interest in the ${city} bootcamp`}>Register interest <ArrowUpRight size={17} aria-hidden="true" /></a>
             </article>
           ))}
+          <article className="bootcamp-card">
+            <span className="technical-label">0{bootcampCities.length + 1} / WEBINAR</span>
+            <h3>{bootcampWebinar.title}</h3>
+            <p>{bootcampWebinar.description}</p>
+          </article>
         </div>
         <div className="bootcamp-registration" id="bootcamp-registration">
           <div>
