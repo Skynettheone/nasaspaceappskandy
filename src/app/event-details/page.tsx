@@ -11,7 +11,7 @@ import { createPageMetadata } from "@/content/metadata";
 import { EventSchedule } from "@/components/EventSchedule";
 import { EventFaq } from "@/components/EventFaq";
 import { ApplicationForm } from "@/components/ApplicationForm";
-import { bootcampCapacity, bootcampCities, bootcampWebinar, bootcampWindow } from "@/content/bootcamps";
+import { bootcampCities, bootcampWebinar, bootcampWindow } from "@/content/bootcamps";
 
 const eventHighlights = [
   {
@@ -111,7 +111,6 @@ export default function Events() {
             <article className="bootcamp-card" key={city}>
               <span className="technical-label">0{index + 1} / BOOTCAMP</span>
               <h3>{city}</h3>
-              <p>{bootcampCapacity[city]}</p>
               <a className="text-link" href="#bootcamp-registration" aria-label={`Register interest in the ${city} bootcamp`}>Register interest <ArrowUpRight size={17} aria-hidden="true" /></a>
             </article>
           ))}

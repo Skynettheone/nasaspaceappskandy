@@ -39,7 +39,7 @@ export default function SponsorsAndPartners() {
         </div>
         <div className="sponsor-reach-grid">
           <div><strong>40,000+</strong><span>Projected campaign reach</span><p>Students across Sri Lanka through IEEE student branches, school science associations, and our ecosystem and community partners</p></div>
-          <div><strong>1,000+</strong><span>Students in person</span><p>800 across the free, half-day bootcamps in Colombo (500) and Kandy (300), plus the main hackathon</p></div>
+          <div><strong>1,000+</strong><span>Students in person</span><p>Across the free, half-day bootcamps in Colombo and Kandy, plus the main hackathon</p></div>
           <div><strong>~200</strong><span>On site for 48 hours</span><p>Builders, mentors, judges and crew in Kandy on 14–15 November 2026, plus virtual teams</p></div>
         </div>
       </section>

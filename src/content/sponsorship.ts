@@ -20,7 +20,7 @@ export const sponsorshipTiers = [
     summary: "Own the bootcamp series in Colombo and Kandy.",
     payment: "50% on signing; 50% before the first bootcamp.",
     benefits: ["Bootcamp Series naming rights", "The only university or professional-qualification brand at the bootcamps", "10–15 minute session and a booth at both bootcamps"],
-    details: ["“Space Apps Kandy Bootcamp Series powered by [Your Brand]”.", "Session and booth in front of 800 students across Colombo and Kandy.", "Large logo on bootcamp backdrops, posters and certificates.", "Present the mini-hack awards at both bootcamps.", "Flyers in student packs and an opt-in form for interested students, with parental consent for under-18s.", "“Best Bootcamp Team” award and a booth at the main hackathon.", "3 dedicated social posts and the bootcamp video series.", "4 prize-giving invitations, an appreciation plaque and an impact report."],
+    details: ["“Space Apps Kandy Bootcamp Series powered by [Your Brand]”.", "Large logo on bootcamp backdrops, posters and certificates.", "Present the mini-hack awards at both bootcamps.", "Flyers in student packs and an opt-in form for interested students, with parental consent for under-18s.", "“Best Bootcamp Team” award and a booth at the main hackathon.", "3 dedicated social posts and the bootcamp video series.", "4 prize-giving invitations, an appreciation plaque and an impact report."],
   },
   {
     name: "Gold Partner", label: "Best for talent", amount: "150,000",
