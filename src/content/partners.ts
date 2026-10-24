@@ -22,7 +22,8 @@ export const partnerRoles: PartnerRole[] = [
     logos: [{ src: "/sponsors/sliit-kandy-uni.png", alt: "SLIIT Kandy UNI", width: 1280, height: 367, tile: true }],
   },
   {
-    title: "Official Co-Organizer",
+    // U+2011 keeps "Co-Organizer" from splitting at the hyphen on narrow screens.
+    title: "Official Co‑Organizer",
     logos: [{ src: "/sponsors/kandy-uni-student-interactive-society.png", alt: "Student Interactive Society, Kandy UNI", width: 1387, height: 1487 }],
   },
   {

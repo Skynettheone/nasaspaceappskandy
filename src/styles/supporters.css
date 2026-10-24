@@ -19,17 +19,20 @@
 .supporter-group { flex: 0 1 240px; display: grid; grid-template-rows: auto 72px; justify-items: center; gap: 14px; min-width: 0; }
 .supporter-group > h3 { display: flex; align-items: flex-end; justify-content: center; min-height: 3.2em; margin: 0; color: var(--muted); text-align: center; text-transform: uppercase; text-wrap: balance; }
 .supporter-logo-grid { display: flex; align-items: center; justify-content: center; width: 100%; }
+/* Phones: a two-column grid whose rows share label and logo tracks, so paired logos line up. */
 @media (max-width: 600px) {
-  .partner-groups { gap: 32px 20px; }
-  .supporter-group { flex-basis: calc(50% - 10px); grid-template-rows: auto 60px; }
-  .supporter-group > h3 { min-height: 4.8em; }
-  .supporter-group-wide { flex-basis: 100%; }
-  .supporter-group-wide > h3 { min-height: 0; }
-  .partner-logo { max-width: min(100%, var(--logo-max-width, 140px)); max-height: 44px; }
-  .partner-logo[data-shape="mark"] { max-height: 60px; }
-  .sequence-identity { gap: 8px; }
-  .sequence-identity img { flex-basis: 30px; width: 30px; height: 29px; }
-  .sequence-identity figcaption { font-size: 17px; }
+  .partner-groups { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 16px; }
+  .supporter-group { display: grid; grid-row: span 2; grid-template-rows: subgrid; row-gap: 12px; }
+  .supporter-group > h3 { min-height: 0; letter-spacing: .08em; }
+  .supporter-group-wide { grid-column: 1 / -1; }
+  .supporter-logo-grid { height: 56px; }
+  .partner-logo { max-width: min(100%, var(--logo-max-width, 132px)); max-height: 40px; }
+  .partner-logo[data-shape="mark"] { max-height: 56px; }
+  .partner-logo-tile { max-width: min(100%, 120px); border-radius: 6px; }
+  .partner-logo-tile[data-shape="mark"] { max-height: 50px; }
+  .sequence-identity { gap: 6px; }
+  .sequence-identity img { flex-basis: clamp(18px, 6vw, 24px); width: clamp(18px, 6vw, 24px); height: auto; }
+  .sequence-identity figcaption { font-size: clamp(11px, 3.7vw, 15px); }
 }
 .sponsor-reach-grid p { margin: 0; font-size: 13px; }
 .support-reason-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; list-style: none; padding: 0; margin: 0; border: 1px dashed var(--border); }
